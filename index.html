@@ -435,19 +435,19 @@
                 console.log("Marker Angle:", markerAngle); // Adicionado para depuração
         
                 if (clicks <= 1000) {
-                    if (mouseReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Mouse"
+                    if (mouseReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Mouse"
                         snailAngle = 252 + markerAngle; // Mouse
                         mouseReleasedCount++;
-                    } else if (camisetaReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Camiseta"
+                    } else if (camisetaReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Camiseta"
                         snailAngle = 72 + markerAngle; // Camiseta
                         camisetaReleasedCount++;
-                    } else if (copoReleasedCount < 3 && shouldReleasePrize(15)) { // 10% chance para liberar "Copo"
+                    } else if (copoReleasedCount < 3 && shouldReleasePrize(5)) { // 10% chance para liberar "Copo"
                         snailAngle = 324 + markerAngle; // Copo
                         copoReleasedCount++;
-                    } else if (monitorReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Monitor"
+                    } else if (monitorReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Monitor"
                         snailAngle = 36 + markerAngle; // Monitor
                         monitorReleasedCount++;
-                    } else if (cadeiraReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Cadeira"
+                    } else if (cadeiraReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Cadeira"
                         snailAngle = 144 + markerAngle; // Cadeira
                         cadeiraReleasedCount++;
                     } else {

@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COOLER MASTER - DIA 2</title>
+    <title>COOLER MASTER - DIA 3 manhã</title>
     <style>
  .premios {
     background-color: #fff;
@@ -382,6 +382,9 @@
             let cadeiraReleasedCount = 0; // Contador de liberação da Cadeira
             let gabineteReleasedCount = 0; // Contador de liberação do Gabinete
         
+            let bottomReleasedCount = 0;
+            let nothingReleasedCount = 0;
+        
             // Prêmios definidos por segmentos
             const symbolSegments = {
                 1: "#1\nParabéns! Você ganhou um Monitor GA27!",
@@ -397,24 +400,28 @@
             };
         
             const bottomImages = [
-                'assets/bottom (2).png',
-                'assets/bottom (2).png',
-                'assets/bottom (2).png',
-                'assets/bottom (2).png',
-                'assets/bottom (2).png'
+                'assets/bottom (3).png',
+                'assets/bottom (3).png',
+                'assets/bottom (3).png',
+                'assets/bottom (3).png',
+                'assets/bottom (3).png'
             ];
         
             const cadeiraImages = [
-                'assets/cadeiras (2).png',
-                'assets/cadeiras (3).png'
+                'assets/cadeiras (1).png',
             ];
-
-               
+        
             const gabineteImages = [
-                'assets/monitores (1).png',
-                'assets/monitores (5).png'
+                'assets/monitores (4).png',
             ];
-
+        
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * max);
+            }
+        
+            function shouldReleasePrize(probability) {
+                return getRandomInt(100) < probability; // Retorna verdadeiro baseado na probabilidade passada
+            }
         
             startButton.addEventListener('click', () => {
                 // Disable button during spin
@@ -424,45 +431,35 @@
                 const markerAngle = -Math.atan2(marker.offsetTop, marker.offsetLeft) * (180 / Math.PI);
                 let snailAngle;
         
-                function getRandomInt(max) {
-                    return Math.floor(Math.random() * max);
-                }
-        
-                function shouldReleasePrize(probability) {
-                    return getRandomInt(100) < probability; // Retorna verdadeiro baseado na probabilidade passada
-                }
-        
                 console.log("Clicks:", clicks);
                 console.log("Marker Angle:", markerAngle); // Adicionado para depuração
         
                 if (clicks <= 1000) {
-                    if (mouseReleasedCount < 2 && shouldReleasePrize(10)) { // 10% chance para liberar "Mouse"
+                    if (mouseReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Mouse"
                         snailAngle = 252 + markerAngle; // Mouse
                         mouseReleasedCount++;
-                    } else if (camisetaReleasedCount < 4 && shouldReleasePrize(10)) { // 10% chance para liberar "Camiseta"
+                    } else if (camisetaReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Camiseta"
                         snailAngle = 72 + markerAngle; // Camiseta
                         camisetaReleasedCount++;
-                    } else if (copoReleasedCount < 6 && shouldReleasePrize(10)) { // 10% chance para liberar "Copo"
-                        snailAngle = 324 + markerAngle; // Squezze
+                    } else if (copoReleasedCount < 3 && shouldReleasePrize(15)) { // 10% chance para liberar "Copo"
+                        snailAngle = 324 + markerAngle; // Copo
                         copoReleasedCount++;
-                    } else if (coolerReleasedCount < 2 && shouldReleasePrize(7)) { // 10% chance para liberar "Cooler"
-                        snailAngle = 108 + markerAngle; // Cooler
-                        coolerReleasedCount++;
-                    } else if (monitorReleasedCount < 2 && shouldReleasePrize(7)) { // 10% chance para liberar "Monitor"
+                    } else if (monitorReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Monitor"
                         snailAngle = 36 + markerAngle; // Monitor
                         monitorReleasedCount++;
-                    } else if (cadeiraReleasedCount < 2 && shouldReleasePrize(5)) { // 10% chance para liberar "Cadeira"
+                    } else if (cadeiraReleasedCount < 1 && shouldReleasePrize(15)) { // 10% chance para liberar "Cadeira"
                         snailAngle = 144 + markerAngle; // Cadeira
                         cadeiraReleasedCount++;
-                    } else if (gabineteReleasedCount < 2 && shouldReleasePrize(5)) { // 10% chance para liberar "Gabinete"
-                        snailAngle = 216 + markerAngle; // Gabinete
-                        gabineteReleasedCount++;
                     } else {
-                        // Intercalar entre bottom, nothing e Cordão
-                        if (clicks % 2 === 0) {
+                        // Intercalar entre bottom, nothing e Cordão até 250 vezes cada
+                        if (clicks % 2 === 0 && bottomReleasedCount < 250) {
                             snailAngle = 360 + markerAngle; // bottom
-                        } else if (clicks % 2 === 1) {
+                            bottomReleasedCount++;
+                        } else if (clicks % 2 === 1 && nothingReleasedCount < 250) {
                             snailAngle = 180 + markerAngle; // nothing
+                            nothingReleasedCount++;
+                        } else {
+                            snailAngle = 0 + markerAngle; // Cordão (ou qualquer outro prêmio default)
                         }
                     }
                 }
@@ -577,7 +574,10 @@
                     document.querySelector('.mask').style.display = 'none';
                 });
             });
-        })();
+        
+      
+
+})();
         </script>
         
         
@@ -595,8 +595,8 @@
             <div class="card" style="background-color: #000;">
                 <p class="title1">Cadeiras </p>
 
-                <p class="title2">Cadeira Gamer CAMMY ou CHUNLI </b></p>
-                <img src="assets/cadeiras (3).png" alt="" style="height: 130px;">
+                <p class="title2">Cadeira Gamer RYU</b></p>
+                <img src="assets/cadeiras (1).png" alt="" style="height: 130px;">
                 <defs>
                     <linearGradient id="paint0_linear_501_142" x1="0" y1="0" x2="96.1684" y2="87.6201"
                         gradientUnits="userSpaceOnUse">
@@ -756,7 +756,7 @@
                 <p class="title1">Gabinetes</p>
 
                 <p class="title2">Gabinetes Gamers</p>
-                <img src="assets/monitores (5).png" alt="">
+                <img src="assets/monitores (4).png" alt="">
                 <defs>
                     <linearGradient id="paint0_linear_501_142" x1="0" y1="0" x2="96.1684" y2="87.6201"
                         gradientUnits="userSpaceOnUse">

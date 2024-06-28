@@ -422,48 +422,58 @@
             function shouldReleasePrize(probability) {
                 return getRandomInt(100) < probability; // Retorna verdadeiro baseado na probabilidade passada
             }
-        
             startButton.addEventListener('click', () => {
-                // Disable button during spin
-                startButton.style.pointerEvents = 'none';
-            
-                // Calculate a new rotation angle based on the number of clicks
-                const markerAngle = -Math.atan2(marker.offsetTop, marker.offsetLeft) * (180 / Math.PI);
-                let snailAngle;
+  // Disable button during spin
+startButton.style.pointerEvents = 'none';
+
+// Calculate a new rotation angle based on the number of clicks
+const markerAngle = -Math.atan2(marker.offsetTop, marker.offsetLeft) * (180 / Math.PI);
+let snailAngle;
+
+console.log("Clicks:", clicks);
+console.log("Marker Angle:", markerAngle); // Adicionado para depuração
+
+if (clicks <= 1000) {
+    switch (clicks) {
         
-                console.log("Clicks:", clicks);
-                console.log("Marker Angle:", markerAngle); // Adicionado para depuração
-        
-                if (clicks <= 1000) {
-                    if (mouseReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Mouse"
-                        snailAngle = 252 + markerAngle; // Mouse
-                        mouseReleasedCount++;
-                    } else if (camisetaReleasedCount < 1 && shouldReleasePrize(5)) { // 10% chance para liberar "Camiseta"
-                        snailAngle = 72 + markerAngle; // Camiseta
-                        camisetaReleasedCount++;
-                    } else if (copoReleasedCount < 3 && shouldReleasePrize(2)) { // 10% chance para liberar "Copo"
-                        snailAngle = 324 + markerAngle; // Copo
-                        copoReleasedCount++;
-                    } else if (monitorReleasedCount < 1 && shouldReleasePrize(1)) { // 10% chance para liberar "Monitor"
-                        snailAngle = 36 + markerAngle; // Monitor
-                        monitorReleasedCount++;
-                    } else if (cadeiraReleasedCount < 1 && shouldReleasePrize(1)) { // 10% chance para liberar "Cadeira"
-                        snailAngle = 144 + markerAngle; // Cadeira
-                        cadeiraReleasedCount++;
-                    } else {
-                        // Intercalar entre bottom, nothing e Cordão até 250 vezes cada
-                        if (clicks % 2 === 0 && bottomReleasedCount < 250) {
-                            snailAngle = 360 + markerAngle; // bottom
-                            bottomReleasedCount++;
-                        } else if (clicks % 2 === 1 && nothingReleasedCount < 250) {
-                            snailAngle = 180 + markerAngle; // nothing
-                            nothingReleasedCount++;
-                        } else {
-                            snailAngle = 0 + markerAngle; // Cordão (ou qualquer outro prêmio default)
-                        }
-                    }
-                }
-        
+       
+        case 16:              
+        case 30:
+            snailAngle = 324 + markerAngle; //squezze
+            break;
+
+        case 45:
+        snailAngle = 252 + markerAngle; //mouse
+        break;
+
+        case 60:
+        snailAngle = 324 + markerAngle; //squezze
+        break;
+
+        case 75:
+        snailAngle = 36 + markerAngle; //monitor
+        break;
+
+        case 90:
+        snailAngle = 72 + markerAngle; //camiseta
+        break;
+
+        case 105:
+        snailAngle = 144 + markerAngle; //cadeira
+        break;
+       
+        default:
+            if (clicks % 2 === 0 && bottomReleasedCount < 250) {
+                snailAngle = 360 + markerAngle; // Ângulo para o prêmio Bottom
+                bottomReleasedCount++;
+            } else if (clicks % 2 === 1 && nothingReleasedCount < 250) {
+                snailAngle = 180 + markerAngle; // Ângulo para o prêmio Nothing
+                nothingReleasedCount++;
+            } 
+    }
+}
+
+
                 console.log("Snail Angle:", snailAngle); // Adicionado para depuração
                 console.log("Mouse Released Count:", mouseReleasedCount); // Adicionado para depuração
                 console.log("Camiseta Released Count:", camisetaReleasedCount); // Adicionado para depuração
